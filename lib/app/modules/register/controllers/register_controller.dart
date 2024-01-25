@@ -30,7 +30,7 @@ class RegisterController extends GetxController {
   void onClose() {
     super.onClose();
   }
-  register()async{
+  post()async{
     loading(true);
     try {
       FocusScope.of(Get.context!).unfocus(); //untuk ngeclose keyboard
@@ -40,9 +40,9 @@ class RegisterController extends GetxController {
             data: {
               "nama": namaController.text.toString(),
               "username": usernameController.text.toString(),
+              "telp": int.parse(teleponController.text.toString()),
               "alamat": alamatController.text.toString(),
               "password": passwordController.text.toString(),
-              "telp": int.parse(teleponController.text.toString())
             });
         if (response.statusCode == 201){
           Get.offAllNamed(Routes.LOGIN);

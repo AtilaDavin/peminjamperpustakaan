@@ -37,7 +37,17 @@ class RegisterView extends GetView<RegisterController> {
                   }
                   return null;
                 },
-              ),  TextFormField(
+              ),TextFormField(
+                controller: controller.teleponController,
+                decoration: InputDecoration(hintText: "Masukkan Telepon"),
+                validator: (value){
+                  if (value!.isEmpty){ // untuk minimamal password
+                    return "Telepon tidak boleh kosong";
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
                 controller: controller.alamatController,
                 decoration: InputDecoration(hintText: "Masukkan Alamat"),
                 validator: (value){
@@ -56,20 +66,11 @@ class RegisterView extends GetView<RegisterController> {
                   }
                   return null;
                 },
-              ),TextFormField(
-                controller: controller.teleponController,
-                decoration: InputDecoration(hintText: "Masukkan Telepon"),
-                validator: (value){
-                  if (value!.isEmpty){ // untuk minimamal password
-                    return "Telepon tidak boleh kosong";
-                  }
-                  return null;
-                },
               ),
               Obx(() => controller.loading.value?
               CircularProgressIndicator():
               ElevatedButton(onPressed: (){
-                controller.register();
+                controller.post();
               }, child: Text("Register"))
               )
             ],

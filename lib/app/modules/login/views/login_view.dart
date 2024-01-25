@@ -18,9 +18,11 @@ class LoginView extends GetView<LoginController> {
           key: controller.formKey,
           child: Column(
             children: [
-              TextFormField(
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child : TextFormField(
                 controller: controller.usernameController,
-                decoration: InputDecoration(hintText: "Masukkan Username",icon: Icon(Icons.person)),
+                decoration: InputDecoration(hintText: "Masukkan Username",icon: Icon(Icons.person),border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
                 validator: (value){
                   if (value!.isEmpty){ // untuk minim username
                     return "username tidak boleh kosong";
@@ -28,9 +30,12 @@ class LoginView extends GetView<LoginController> {
                   return null;
                 },
               ),
-              TextFormField(
+              ),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child : TextFormField(
                 controller: controller.passwordController,
-                decoration: InputDecoration(hintText: "Masukkan Password",icon: Icon(Icons.lock)),
+                decoration: InputDecoration(hintText: "Masukkan Password",icon: Icon(Icons.lock),border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
                 validator: (value){
                   if (value!.isEmpty){ // untuk minimamal password
                     return "Password tidak boleh kosong";
@@ -38,14 +43,22 @@ class LoginView extends GetView<LoginController> {
                   return null;
                 },
               ),
+              ),
               Obx(() => controller.loading.value?
               CircularProgressIndicator():
-              ElevatedButton(onPressed: (){
-                controller.login();
-              }, child: Text("Login"))
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child:  ElevatedButton(onPressed: (){
+                  controller.login();
+                }, child: Text("Login")),
               ),
-              ElevatedButton(onPressed: ()=> Get.toNamed(Routes.REGISTER),
-                  child: Text("Register"))
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: ElevatedButton(onPressed: ()=> Get.toNamed(Routes.REGISTER),
+                    child: Text("Register")),
+              ),
+
             ],
           ),
         ),
