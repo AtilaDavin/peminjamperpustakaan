@@ -33,22 +33,26 @@ class AddPeminjamanController extends GetxController {
     super.onClose();
   }
 
-  post()async{
+  void increment() => count.value++;
+
+  post() async {
     loading(true);
     try {
       FocusScope.of(Get.context!).unfocus(); //untuk ngeclose keyboard
       formKey.currentState?.save();
-      if (formKey.currentState!.validate()){
-        final response = await ApiProvider.instance().post(Endpoint.pinjam,
-            data: {
-              "user_id": StorageProvider.read(StorageKey.iduser),
-              "book_id": Get.parameters['id'],
+      if (formKey.currentState!.validate()) {
+        final response =
+            await ApiProvider.instance().post(Endpoint.pinjam, data: {
+          "user_id": int.parse(StorageProvider.read(StorageKey.iduser)),
+              "book_id": int.parse(Get.parameters['id'].toString()),
               "tanggal_pinjam": tanggalpinjamController.text.toString(),
               "tanggal_kembali": tanggalkembaliController.text.toString(),
             });
-        if (response.statusCode == 201){
-          Get.back();
-        }else{
+        if (response.statusCode == 201) {
+          Get.snackbar("Pemberitahuan", "Peminjaman Berhasil",
+              backgroundColor: Colors.red);
+          Get.offAllNamed(Routes.HOME);
+        } else{
           Get.snackbar("Sorry", "Add Peminjaman Gagal", backgroundColor:  Colors.orange);
         }
       }loading(false);
@@ -66,6 +70,4 @@ class AddPeminjamanController extends GetxController {
       Get.snackbar("Error", e.toString(), backgroundColor: Colors.red);
     }
   }
-
-  void increment() => count.value++;
 }
