@@ -14,6 +14,7 @@ class PeminjamanController extends GetxController with StateMixin<List<DataPinja
   @override
   void onInit() {
     super.onInit();
+    getData();
   }
 
   @override
